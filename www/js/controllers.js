@@ -5,6 +5,8 @@ angular.module('handheld.controllers', ['ionic'])
                 console.log(customer);
                 $state.go('tab.waiting-customer', {
                     id: customer.id
+                }, {
+                    location: false
                 });
             }
         })
@@ -25,6 +27,9 @@ angular.module('handheld.controllers', ['ionic'])
                     scope: $scope,
                     animation: 'slide-in-up'
                 }).then(function(modal) {
+                    $scope.cancel = function() {
+                        modal.hide();
+                    };
                     $scope.save = function() {
                         modal.hide();
                     };

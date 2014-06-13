@@ -43,7 +43,6 @@ angular.module('handheld.directives', ['ionic'])
                 return {
                     restrict: 'A',
                     link: function(scope, elem, attrs) {
-                        console.log(elem);
                         scope.$on(attrs.animatedTab, function(event, args) {
                             $("a." + attrs.class).effect('shake');
                         });

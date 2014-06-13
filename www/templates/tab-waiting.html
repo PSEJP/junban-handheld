@@ -5,13 +5,21 @@
             <ion-item class="customer-item"
                       ng-repeat="customer in customerService.customers| filter:{status:null} | orderBy:sequence:false"
                       ng-click="itemClick(customer)">
+                <div class="sequence-sm">
+                    {{customer.sequence}}
+                </div>
                 <div class="row">
                     <div class="col col-50 col-center">
-                        <img class="signature"
+                        <div class="row row-center">
+                            <div class="col col-10 sequence">{{customer.sequence}}</div>
+                            <div class="col col-90">
+                                <img class="signature"
                              ng-src="{{customer.signature}}">
+                            </div>
+                        </div>
                     </div>
                     <div class="col col-50 col-center">
-                        <table>
+                        <table class="answers">
                             <tr ng-repeat="(id, question) in questionService.questions">
                                 <th>{{question.name}}</th>
                                 <td>{{customer.answers[id]}}</td>

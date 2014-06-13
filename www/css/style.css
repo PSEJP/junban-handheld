@@ -1,6 +1,5 @@
 .customer-item {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
 }
 
 .customer-item img.signature {
@@ -17,8 +16,20 @@
 }
 
 .customer-item th {
-    font-weight: 800;
     padding-right: 10px;
+}
+.customer-item td {
+    font-weight: 800;
+}
+.customer-item .sequence {
+    color: #145fd7;
+    font-size: 49px;
+}
+.customer-item .sequence-sm {
+    display: none;
+}
+.customer-item .answers {
+    
 }
 
 .popup-edit-customer {
@@ -27,4 +38,23 @@
 
 .bar {
     transition: background-color 500ms linear;
+}
+
+@media screen and (max-width: 320px) and (orientation:portrait) {
+    .customer-item .sequence {
+        display: none;
+    }
+    
+    .customer-item .sequence-sm {
+        color: #145fd7;
+        display: block;
+        position: absolute;
+        border: solid rgb(221, 221, 221) thin;
+        border-bottom-right-radius: 5px;
+        border-left: none;
+        border-top: none;
+        
+        font-size: 24px;
+        padding: 10px;
+    }
 }

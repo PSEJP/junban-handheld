@@ -1,6 +1,10 @@
 <div class="modal customer-modal">
     <ion-header-bar class="bar bar-header bar-positive">
         <h1 class="title">Edit Customer {{currentCustomer.sequence}}</h1>
+        <div class="buttons">
+            <button class="button button-clear icon ion-close"
+                    ng-click="cancel()"></button>
+        </div>
     </ion-header-bar>
     <ion-content class="padding">
         <img class="signature" ng-src="{{currentCustomer.signature}}" />
