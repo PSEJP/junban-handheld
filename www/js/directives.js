@@ -29,4 +29,12 @@ angular.module('handheld.directives', ['ionic'])
                         }
                     }
                 };
+            }])
+        
+        .directive('navButtonsRight', [function(){
+                return {
+                    replace: true,
+                    restrict: 'E',
+                    templateUrl: 'templates/nav-buttons-right.html'
+                }
             }]);

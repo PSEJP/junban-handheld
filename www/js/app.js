@@ -21,7 +21,9 @@ angular.module('handheld', ['ionic', 'handheld.controllers', 'handheld.services'
 
                 $rootScope.toggleFullscreen = function() {
                     screenfull.toggle(document.documentElement);
+                    $rootScope.isFullscreen = screenfull.isFullscreen;
                 }
+                $rootScope.isFullscreen = screenfull.isFullscreen;
 
                 $rootScope.customerService = customerService;
                 $rootScope.questionService = questionService;
