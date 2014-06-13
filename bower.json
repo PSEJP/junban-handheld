@@ -1,0 +1,10 @@
+{
+    "name": "Handheld Demo",
+    "private": "true",
+    "dependencies": {
+        "angular-ui-utils": "latest"
+    },
+    "devDependencies": {
+        "ionic": "driftyco/ionic-bower#1.0.0-beta.7"
+    }
+}

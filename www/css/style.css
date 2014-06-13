@@ -1,0 +1,18 @@
+.customer-item {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.customer-item img.signature {
+    height: 70px;
+    max-width: 100%;
+}
+
+.customer-item th {
+    font-weight: 800;
+    padding-right: 10px;
+}
+
+.popup-edit-customer {
+    
+}

@@ -1,0 +1,24 @@
+<ion-view title="Called List">
+    <ion-content class="">
+        <ion-list can-swipe="listCanSwipe">
+            <ion-item class="customer-item"
+                      ng-repeat="customer in customerService.customers | filter:{status:'C'} | orderBy:sequence:false"
+                      ng-click="itemClick(customer)">
+                <div class="row">
+                    <div class="col col-50 col-center">
+                        <img class="signature"
+                             ng-src="{{customer.signature}}">
+                    </div>
+                    <div class="col col-50 col-center">
+                        <table>
+                            <tr ng-repeat="(id, question) in questionService.questions">
+                                <th>{{question.name}}</th>
+                                <td>{{customer.answers[id]}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>
