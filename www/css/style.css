@@ -8,6 +8,11 @@
     max-width: 100%;
 }
 
+.customer-modal img.signature, 
+.waiting-customer img.signature {
+    max-width: 100%;
+}
+
 .customer-item th {
     font-weight: 800;
     padding-right: 10px;
@@ -15,4 +20,8 @@
 
 .popup-edit-customer {
     
+}
+
+.bar {
+    transition: background-color 500ms linear;
 }

@@ -81,6 +81,15 @@ angular.module('handheld.services', [])
                 }
             ];
 
+            this.get = function(id) {
+                for(var i in this.customers) {
+                    if(this.customers[i].id == id) {
+                        return this.customers[i];
+                    }
+                }
+                return false;
+            }
+
             this.call = function(customer) {
                 customer.status = 'C';
                 console.log("Called customer", customer);

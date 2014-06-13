@@ -1,0 +1,11 @@
+<ion-view title="Customer {{currentCustomer.sequence}}" class="padding waiting-customer">
+    <ion-content class="padding">
+        <img class="signature" ng-src="{{currentCustomer.signature}}" />
+        <button class="button button-block button-balanced icon-left ion-ios7-telephone"
+                ng-click="call()">Call</button>
+        <button class="button button-block button-positive icon-left ion-edit"
+                ng-click="edit()">Edit</button>
+        <button class="button button-block button-assertive  icon-left ion-ios7-alarm"
+                ng-click="miss()">Miss</button>
+    </ion-content>
+</ion-view>

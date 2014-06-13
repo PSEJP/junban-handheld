@@ -15,6 +15,7 @@
         -->
 
         <!-- ionic/angularjs js -->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="lib/ionic/js/ionic.bundle.js"></script>
 
         <!-- cordova script (this will be a 404 during development) -->
@@ -25,14 +26,14 @@
         <script src="js/app.js"></script>
         <script src="js/controllers.js"></script>
         <script src="js/services.js"></script>
+        <script src="js/directives.js"></script>
     </head>
     <body ng-app="handheld" animation="slide-left-right-ios7">
         <ion-nav-bar animation="nav-title-slide-ios7" 
-                     class="bar-positive"
-                     no-tap-scroll="false">
-            <div class="buttons right-buttons" style="float:right">
-                <button class="button icon ion-arrow-expand" ng-click="toggleFullscreen()"></button>
-            </div>
+                     no-tap-scroll="false"
+                     class="bar bar-header"
+                     animated-nav-bar>
+            <ion-nav-back-button class="button-icon ion-arrow-left-c"></ion-nav-back-button>
         </ion-nav-bar>
         <ion-nav-view animation="slide-left-right"></ion-nav-view>
     </body>

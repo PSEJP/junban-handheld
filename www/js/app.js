@@ -5,9 +5,9 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-angular.module('handheld', ['ionic', 'handheld.controllers', 'handheld.services'])
+angular.module('handheld', ['ionic', 'handheld.controllers', 'handheld.services', 'handheld.directives'])
 
-        .run(function($ionicPlatform, $rootScope, $state) {
+        .run(function($ionicPlatform, $rootScope, $state, customerService, questionService) {
             $ionicPlatform.ready(function() {
                 // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
                 // for form inputs)
@@ -22,6 +22,9 @@ angular.module('handheld', ['ionic', 'handheld.controllers', 'handheld.services'
                 $rootScope.toggleFullscreen = function() {
                     screenfull.toggle(document.documentElement);
                 }
+
+                $rootScope.customerService = customerService;
+                $rootScope.questionService = questionService;
             });
         })
 
@@ -48,6 +51,15 @@ angular.module('handheld', ['ionic', 'handheld.controllers', 'handheld.services'
                             'tab-waiting': {
                                 templateUrl: 'templates/tab-waiting.html',
                                 controller: 'WaitingCtrl'
+                            }
+                        }
+                    })
+                    .state('tab.waiting-customer', {
+                        url: '/waiting-customer/:id',
+                        views: {
+                            'tab-waiting': {
+                                templateUrl: 'templates/tab-waiting-customer.html',
+                                controller: 'WaitingCustomerCtrl'
                             }
                         }
                     })

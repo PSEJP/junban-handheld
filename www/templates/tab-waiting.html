@@ -2,7 +2,7 @@
     <ion-content class="">
         <ion-list can-swipe="listCanSwipe">
             <ion-item class="customer-item"
-                      ng-repeat="customer in customerService.customers | filter:{status:null} | orderBy:sequence:false"
+                      ng-repeat="customer in customerService.customers| filter:{status:null} | orderBy:sequence:false"
                       ng-click="itemClick(customer)">
                 <div class="row">
                     <div class="col col-50 col-center">
