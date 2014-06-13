@@ -5,8 +5,6 @@ angular.module('handheld.controllers', ['ionic'])
                 console.log(customer);
                 $state.go('tab.waiting-customer', {
                     id: customer.id
-                }, {
-                    location: false
                 });
             }
         })

@@ -6,6 +6,7 @@ angular.module('handheld.services', [])
                     id: 1,
                     sequence: 1,
                     created_at: "2014-06-13 18:00:00",
+                    updated_at: 0,
                     status: null,
                     signature: 'img/sign1.png',
                     answers: {
@@ -17,6 +18,7 @@ angular.module('handheld.services', [])
                     id: 2,
                     sequence: 2,
                     created_at: "2014-06-13 19:00:00",
+                    updated_at: 0,
                     status: null,
                     signature: 'img/sign2.png',
                     answers: {
@@ -28,6 +30,7 @@ angular.module('handheld.services', [])
                     id: 3,
                     sequence: 3,
                     created_at: "2014-06-13 20:00:00",
+                    updated_at: 0,
                     status: null,
                     signature: 'img/sign3.png',
                     answers: {
@@ -39,6 +42,7 @@ angular.module('handheld.services', [])
                     id: 4,
                     sequence: 4,
                     created_at: "2014-06-13 21:00:00",
+                    updated_at: 0,
                     status: null,
                     signature: 'img/sign4.png',
                     answers: {
@@ -50,6 +54,7 @@ angular.module('handheld.services', [])
                     id: 5,
                     sequence: 5,
                     created_at: "2014-06-13 21:00:00",
+                    updated_at: 0,
                     status: null,
                     signature: 'img/sign4.png',
                     answers: {
@@ -61,6 +66,7 @@ angular.module('handheld.services', [])
                     id: 6,
                     sequence: 6,
                     created_at: "2014-06-13 21:00:00",
+                    updated_at: 0,
                     status: null,
                     signature: 'img/sign4.png',
                     answers: {
@@ -72,6 +78,7 @@ angular.module('handheld.services', [])
                     id: 7,
                     sequence: 7,
                     created_at: "2014-06-13 21:00:00",
+                    updated_at: 0,
                     status: null,
                     signature: 'img/sign4.png',
                     answers: {
@@ -92,11 +99,13 @@ angular.module('handheld.services', [])
 
             this.call = function(customer) {
                 customer.status = 'C';
+                customer.updated_at = new Date().getTime();
                 $rootScope.$broadcast('customer:called', {customer: customer});
             }
             
             this.miss = function(customer) {
                 customer.status = 'M';
+                customer.updated_at = new Date().getTime();
                 $rootScope.$broadcast('customer:missed', {customer: customer});
             }
         })
