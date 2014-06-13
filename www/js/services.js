@@ -1,6 +1,6 @@
 angular.module('handheld.services', [])
 
-        .service("customerService", function() {
+        .service("customerService", function($rootScope) {
             this.customers = [
                 {
                     id: 1,
@@ -92,12 +92,12 @@ angular.module('handheld.services', [])
 
             this.call = function(customer) {
                 customer.status = 'C';
-                console.log("Called customer", customer);
+                $rootScope.$broadcast('customer:called', {customer: customer});
             }
             
             this.miss = function(customer) {
                 customer.status = 'M';
-                console.log("Missed customer", customer);
+                $rootScope.$broadcast('customer:missed', {customer: customer});
             }
         })
 

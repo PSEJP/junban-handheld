@@ -30,11 +30,23 @@ angular.module('handheld.directives', ['ionic'])
                     }
                 };
             }])
-        
-        .directive('navButtonsRight', [function(){
+
+        .directive('navButtonsRight', [function() {
                 return {
                     replace: true,
                     restrict: 'E',
                     templateUrl: 'templates/nav-buttons-right.html'
                 }
+            }])
+
+        .directive('animatedTab', [function() {
+                return {
+                    restrict: 'A',
+                    link: function(scope, elem, attrs) {
+                        console.log(elem);
+                        scope.$on(attrs.animatedTab, function(event, args) {
+                            $("a." + attrs.class).effect('shake');
+                        });
+                    }
+                };
             }]);
