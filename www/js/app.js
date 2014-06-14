@@ -25,6 +25,13 @@ angular.module('handheld', ['ionic', 'handheld.controllers', 'handheld.services'
                 }
                 $rootScope.isFullscreen = screenfull.isFullscreen;
 
+                $rootScope.tabWaitingClicked = function() {
+                    console.log($state.current);
+                    if($state.is('tab.waiting-customer')) {
+                        $state.go('tab.waiting');
+                    }
+                }
+
                 $rootScope.customerService = customerService;
                 $rootScope.questionService = questionService;
             });

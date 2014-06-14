@@ -1,26 +1,26 @@
 <ion-view title="Customer {{currentCustomer.sequence}}" class="padding waiting-customer">
-    <nav-buttons-right></nav-buttons-right>
+    <ion-nav-buttons side="right">
+        <button class="button button-clear icon ion-edit" 
+                ng-click="edit()"></button>
+    </ion-nav-buttons>
     <ion-content class="padding">
         <div class="class">
             <div class="col">
                 <img class="signature" ng-src="{{currentCustomer.signature}}" />
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <button class="button button-block button-balanced icon-left ion-ios7-telephone"
-                        ng-click="call()">Call</button>
+        <div class="list list-inset">
+            <div class="item"
+                 ng-repeat="(id,question) in questionService.questions">
+                <div class="row" >
+                    <div class="col-25">{{question.name}}</div>
+                    <div class="col-75">{{currentCustomer.answers[id]}}</div>
+                </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col">
-                <button class="button button-block button-positive icon-left ion-edit"
-                        ng-click="edit()">Edit</button>
-            </div>
-            <div class="col"    >
-                <button class="button button-block button-assertive  icon-left ion-ios7-alarm"
-                        ng-click="miss()">Miss</button>
-            </div>
-        </div>
+        <button class="button button-block button-balanced icon-left ion-ios7-telephone"
+                ng-click="call()">Call</button>
+        <button class="button button-block button-assertive  icon-left ion-ios7-alarm"
+                ng-click="miss()">Miss</button>
     </ion-content>
 </ion-view>

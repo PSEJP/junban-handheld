@@ -8,7 +8,7 @@ angular.module('handheld.controllers', ['ionic'])
                 });
             }
         })
-        .controller('WaitingCustomerCtrl', function($scope, $stateParams, $ionicModal,  $ionicNavBarDelegate, customerService) {
+        .controller('WaitingCustomerCtrl', function($scope, $stateParams, $ionicModal,  $ionicNavBarDelegate, customerService, questionService) {
             $scope.currentCustomer = customerService.get($stateParams.id);
 
             $scope.call = call;
@@ -25,6 +25,14 @@ angular.module('handheld.controllers', ['ionic'])
                     scope: $scope,
                     animation: 'slide-in-up'
                 }).then(function(modal) {
+                    $scope.formData = {
+                        parameters: {}
+                    };
+                    for(var id in questionService.questions) {
+                        var question = questionService.questions[id];
+                        $scope.formData.parameters[id] = $scope.currentCustomer.answers[id];
+                    }
+                    
                     $scope.cancel = function() {
                         modal.hide();
                     };

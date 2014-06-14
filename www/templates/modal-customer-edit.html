@@ -14,8 +14,7 @@
                 <div class="input-label">
                     {{question.name}}
                 </div>
-                <select>
-                    <option selected>{{currentCustomer.answers[id]}}</option>
+                <select ng-model="currentCustomer.answers[id]">
                     <option ng-repeat="answer in question.answers">{{answer}}</option>
                 </select>
             </label>
