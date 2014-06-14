@@ -82,6 +82,15 @@ angular.module('handheld', ['ionic', 'handheld.controllers', 'handheld.services'
                             }
                         }
                     })
+                    .state('tab.called-customer', {
+                        url: '/called-customer/:id',
+                        views: {
+                            'tab-called': {
+                                templateUrl: 'templates/tab-called-customer.html',
+                                controller: 'CalledCustomerCtrl'
+                            }
+                        }
+                    })
 
                     .state('tab.missed', {
                         url: '/missed',
@@ -89,6 +98,15 @@ angular.module('handheld', ['ionic', 'handheld.controllers', 'handheld.services'
                             'tab-missed': {
                                 templateUrl: 'templates/tab-missed.html',
                                 controller: 'MissedCtrl'
+                            }
+                        }
+                    })
+                    .state('tab.missed-customer', {
+                        url: '/missed-customer/:id',
+                        views: {
+                            'tab-missed': {
+                                templateUrl: 'templates/tab-missed-customer.html',
+                                controller: 'MissedCustomerCtrl'
                             }
                         }
                     })

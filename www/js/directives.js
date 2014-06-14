@@ -6,17 +6,24 @@ angular.module('handheld.directives', ['ionic'])
                     link: function(scope, elem, attrs) {
                         var currentClass = '';
 
+                        //init
+                        check($state.current.name)
+
                         $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
                             check(toState.name);
                         });
 
                         function check(stateName) {
-                            if (stateName.match('tab\.waiting.*')) {
-                                update('bar-positive');
-                            } else if (stateName == 'tab.called') {
-                                update('bar-balanced');
-                            } else if (stateName == 'tab.missed') {
-                                update('bar-assertive');
+                            var patterns = {
+                                'tab\.waiting.*': 'bar-positive',
+                                'tab\.called.*': 'bar-balanced',
+                                'tab\.missed.*': 'bar-assertive',
+                            };
+
+                            for (var pattern in patterns) {
+                                if (stateName.match(pattern)) {
+                                    update(patterns[pattern]);
+                                }
                             }
                         }
 

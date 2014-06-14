@@ -2,56 +2,66 @@ angular.module('handheld.controllers', ['ionic'])
 
         .controller('WaitingCtrl', function($scope, $state) {
             $scope.itemClick = function(customer) {
-                console.log(customer);
                 $state.go('tab.waiting-customer', {
                     id: customer.id
                 });
             }
         })
-        .controller('WaitingCustomerCtrl', function($scope, $stateParams, $ionicModal,  $ionicNavBarDelegate, customerService, questionService) {
+        .controller('WaitingCustomerCtrl', function($scope, $stateParams, $ionicModal,  $ionicNavBarDelegate, customerService, editModalFactory) {
             $scope.currentCustomer = customerService.get($stateParams.id);
 
-            $scope.call = call;
-            $scope.edit = edit;
-            $scope.miss = miss;
-
-            function call() {
+            $scope.call = function() {
                 customerService.call($scope.currentCustomer);
                 $ionicNavBarDelegate.back();
             }
 
-            function edit() {
-                $ionicModal.fromTemplateUrl("templates/modal-customer-edit.html", {
-                    scope: $scope,
-                    animation: 'slide-in-up'
-                }).then(function(modal) {
-                    var currentCustomerBackup = angular.copy($scope.currentCustomer);
-                    
-                    $scope.cancel = function() {
-                        angular.copy(currentCustomerBackup, $scope.currentCustomer);
-                        modal.hide();
-                    };
-                    $scope.save = function() {
-                        modal.hide();
-                    };
-                    modal.show();
-                });
+            $scope.edit = function() {
+                editModalFactory($scope);
             }
 
-            function miss() {
+            $scope.miss = function() {
                 customerService.miss($scope.currentCustomer);
                 $ionicNavBarDelegate.back();
             }
         })
 
-        .controller('CalledCtrl', function($scope) {
-
+        .controller('CalledCtrl', function($scope, $state){
+            $scope.itemClick = function(customer) {
+                $state.go('tab.called-customer', {
+                    id: customer.id
+                });
+            }
         })
-        /*
-         .controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-         $scope.friend = Friends.get($stateParams.friendId);
-         })
-         */
-        .controller('MissedCtrl', function($scope) {
-
-        });
+        .controller('CalledCustomerCtrl', function($scope, $stateParams, $ionicNavBarDelegate, customerService, editModalFactory) {
+            $scope.currentCustomer = customerService.get($stateParams.id);
+            
+            $scope.edit = function() {
+                editModalFactory($scope);
+            }
+            
+            $scope.wait = function() {
+                customerService.wait($scope.currentCustomer);
+                $ionicNavBarDelegate.back();
+            }
+        })
+        
+        .controller('MissedCtrl', function($scope, $state){
+            $scope.itemClick = function(customer) {
+                $state.go('tab.missed-customer', {
+                    id: customer.id
+                });
+            }
+        })
+        .controller('MissedCustomerCtrl', function($scope, $stateParams, $ionicNavBarDelegate, customerService, editModalFactory) {
+            $scope.currentCustomer = customerService.get($stateParams.id);
+            
+            $scope.edit = function() {
+                editModalFactory($scope);
+            }
+            
+            $scope.wait = function() {
+                customerService.wait($scope.currentCustomer);
+                $ionicNavBarDelegate.back();
+            }
+        })
+;

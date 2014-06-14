@@ -1,4 +1,4 @@
-angular.module('handheld.services', [])
+angular.module('handheld.services', ['ionic'])
 
         .service("customerService", function($rootScope, $filter) {
             this.customers = [
@@ -89,8 +89,8 @@ angular.module('handheld.services', [])
             ];
 
             this.get = function(id) {
-                for(var i in this.customers) {
-                    if(this.customers[i].id == id) {
+                for (var i in this.customers) {
+                    if (this.customers[i].id == id) {
                         return this.customers[i];
                     }
                 }
@@ -102,25 +102,31 @@ angular.module('handheld.services', [])
                 customer.updated_at = new Date().getTime();
                 $rootScope.$broadcast('customer:called', {customer: customer});
             }
-            
+
             this.miss = function(customer) {
                 customer.status = 'M';
                 customer.updated_at = new Date().getTime();
                 $rootScope.$broadcast('customer:missed', {customer: customer});
             }
-            
+
+            this.wait = function(customer) {
+                customer.status = null;
+                customer.updated_at = new Date().getTime();
+                $rootScope.$broadcast('customer:waiting', {customer: customer});
+            }
+
             this.getWaitingCustomers = function() {
-                var waitingCustomers = $filter('filter')(this.customers, {status:null});
+                var waitingCustomers = $filter('filter')(this.customers, {status: null});
                 return $filter('orderBy')(waitingCustomers, 'sequence', false);
             };
-            
+
             this.getCalledCustomers = function() {
-                var calledCustomers = $filter('filter')(this.customers, {status:'C'});
+                var calledCustomers = $filter('filter')(this.customers, {status: 'C'});
                 return $filter('orderBy')(calledCustomers, '-updated_at', false);
             }
-            
+
             this.getMissedCustomers = function() {
-                var missedCustomers = $filter('filter')(this.customers, {status:'M'});
+                var missedCustomers = $filter('filter')(this.customers, {status: 'M'});
                 return $filter('orderBy')(missedCustomers, '-updated_at', false);
             }
         })
@@ -141,5 +147,25 @@ angular.module('handheld.services', [])
                         "Non-Smoking Area", "Smoking Area", "Either Will Do", "4th Answer"
                     ]
                 }
+            };
+        })
+
+        .factory("editModalFactory", function($ionicModal) {
+            return function($scope) {
+                $ionicModal.fromTemplateUrl("templates/modal-customer-edit.html", {
+                    scope: $scope,
+                    animation: 'slide-in-up'
+                }).then(function(modal) {
+                    var currentCustomerBackup = angular.copy($scope.currentCustomer);
+
+                    $scope.cancel = function() {
+                        angular.copy(currentCustomerBackup, $scope.currentCustomer);
+                        modal.hide();
+                    };
+                    $scope.save = function() {
+                        modal.hide();
+                    };
+                    modal.show();
+                });
             };
         });
