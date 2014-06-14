@@ -3,7 +3,7 @@
     <ion-content class="">
         <ion-list can-swipe="listCanSwipe">
             <ion-item class="customer-item"
-                      ng-repeat="customer in customerService.customers| filter:{status:null} | orderBy:sequence:false"
+                      ng-repeat="customer in customerService.getWaitingCustomers()"
                       ng-click="itemClick(customer)">
                 <div class="sequence-sm">
                     {{customer.sequence}}

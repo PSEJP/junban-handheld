@@ -1,6 +1,6 @@
 angular.module('handheld.services', [])
 
-        .service("customerService", function($rootScope) {
+        .service("customerService", function($rootScope, $filter) {
             this.customers = [
                 {
                     id: 1,
@@ -107,6 +107,21 @@ angular.module('handheld.services', [])
                 customer.status = 'M';
                 customer.updated_at = new Date().getTime();
                 $rootScope.$broadcast('customer:missed', {customer: customer});
+            }
+            
+            this.getWaitingCustomers = function() {
+                var waitingCustomers = $filter('filter')(this.customers, {status:null});
+                return $filter('orderBy')(waitingCustomers, 'sequence', false);
+            };
+            
+            this.getCalledCustomers = function() {
+                var calledCustomers = $filter('filter')(this.customers, {status:'C'});
+                return $filter('orderBy')(calledCustomers, '-updated_at', false);
+            }
+            
+            this.getMissedCustomers = function() {
+                var missedCustomers = $filter('filter')(this.customers, {status:'M'});
+                return $filter('orderBy')(missedCustomers, '-updated_at', false);
             }
         })
 
