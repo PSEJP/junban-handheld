@@ -25,15 +25,10 @@ angular.module('handheld.controllers', ['ionic'])
                     scope: $scope,
                     animation: 'slide-in-up'
                 }).then(function(modal) {
-                    $scope.formData = {
-                        parameters: {}
-                    };
-                    for(var id in questionService.questions) {
-                        var question = questionService.questions[id];
-                        $scope.formData.parameters[id] = $scope.currentCustomer.answers[id];
-                    }
+                    var currentCustomerBackup = angular.copy($scope.currentCustomer);
                     
                     $scope.cancel = function() {
+                        angular.copy(currentCustomerBackup, $scope.currentCustomer);
                         modal.hide();
                     };
                     $scope.save = function() {
