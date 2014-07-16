@@ -1,3 +1,5 @@
 node_modules/
 platforms/
 plugins/
+scss/.scss-cache/
+npm-debug.log
