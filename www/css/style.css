@@ -8,7 +8,9 @@
 }
 
 .customer-modal img.signature, 
-.waiting-customer img.signature {
+.waiting-customer img.signature,
+.called-customer img.signature,
+.missed-customer img.signature {
     max-width: 100%;
     display: block;
     margin-left: auto;
@@ -40,7 +42,7 @@
     transition: background-color 500ms linear;
 }
 
-@media screen and (max-width: 320px) and (orientation:portrait) {
+@media screen and (max-width: 800px)/* and (orientation:portrait)*/ {
     .customer-item .sequence {
         display: none;
     }
