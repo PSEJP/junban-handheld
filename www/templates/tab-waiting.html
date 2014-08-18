@@ -7,11 +7,15 @@
                       ng-click="itemClick(customer)">
                 <div class="sequence-sm">
                     {{customer.sequence}}
+                    <span class="sequence-timing">00:00</span>
                 </div>
                 <div class="row">
                     <div class="col col-50 col-center">
                         <div class="row row-center">
-                            <div class="col col-10 sequence">{{customer.sequence}}</div>
+                            <div class="col col-10 sequence">
+                                {{customer.sequence}}
+                                <span class="sequence-timing">00:00</span>
+                            </div>
                             <div class="col col-90">
                                 <img class="signature"
                              ng-src="{{customer.signature}}">
