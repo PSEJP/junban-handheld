@@ -16,6 +16,14 @@
     margin-left: auto;
     margin-right: auto;
 }
+.waiting-customer .class {
+    position: relative;    
+}
+.waiting-customer .sequence-timing {
+    position: absolute;
+    top: 0; right: 0;
+    color: gray;
+}
 
 .customer-item th {
     padding-right: 10px;
@@ -24,17 +32,21 @@
     font-weight: 800;
 }
 .customer-item .sequence {
+    position: relative;    
     color: #145fd7;
     font-size: 49px;
+    text-align: center;
 }
-.customer-item .sequence-timing {
+.customer-item .sequence .sequence-timing {
     position: absolute;    
-    bottom: 0;
-    left: 8px;
-    margin: 0 auto;
-    padding: 0 5px;            
+    bottom: -35px;   
+    left: 50%;
+    display: inline-block;    
+    margin-left: -22px;  
+    width: 44px;       
     color: gray;
     font-size: 16px;
+    text-align: center;
 }    
 .customer-item .sequence-sm {
     display: none;
