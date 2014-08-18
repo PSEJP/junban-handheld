@@ -27,6 +27,15 @@
     color: #145fd7;
     font-size: 49px;
 }
+.customer-item .sequence-timing {
+    position: absolute;    
+    bottom: 0;
+    left: 8px;
+    margin: 0 auto;
+    padding: 0 5px;            
+    color: gray;
+    font-size: 16px;
+}    
 .customer-item .sequence-sm {
     display: none;
 }
@@ -48,15 +57,20 @@
     }
     
     .customer-item .sequence-sm {
-        color: #145fd7;
+        color: white;
         display: block;
         position: absolute;
         border: solid rgb(221, 221, 221) thin;
-        border-bottom-right-radius: 5px;
-        border-left: none;
-        border-top: none;
+        background: #428bca;        
         
-        font-size: 24px;
-        padding: 10px;
+        font-size: 21px;
+        padding: 0px 5px;
     }
+    .customer-item .sequence-sm .sequence-timing {
+        position: absolute;
+        left: 100%;
+        padding: 0 5px;            
+        color: gray;
+        font-size: 16px;
+    }    
 }
