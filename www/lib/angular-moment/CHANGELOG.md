@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.8.3 - 2014-12-08
+- `amTimeAgo` filter ([#96](https://github.com/urish/angular-moment/pull/96), contributed by [maxklenk](https://github.com/maxklenk))
+- Show formatted time as element title ([#78](https://github.com/urish/angular-moment/pull/78), contributed by [ctesene](https://github.com/ctesene))
+- Support commonjs and browserify ([#95](https://github.com/urish/angular-moment/pull/95), contributed by [Pencroff](https://github.com/Pencroff))
+- SystemJS Loader support ([#85](https://github.com/urish/angular-moment/pull/85), contributed by [capaj](https://github.com/capaj))
+
+## 0.8.2 - 2014-09-07
+- `amMoment.changeLanguage()` was deprecated in favor of `amMoment.changeLocale()` (following [a change](http://momentjs.com/docs/#/i18n/changing-locale/) introduced in moment v2.8.1)
+- Bugfix: changing the locale emitted a deprecation warning (see [#76](https://github.com/urish/angular-moment/issues/76) for details).
+
+## 0.8.1 - 2014-09-01
+- Support moment.js v2.8.0. See [here](https://gist.github.com/ichernev/ac3899324a5fa6c8c9b4) for changelog.
+- Support moment-timezone v0.2.1. See [here](https://github.com/moment/moment-timezone/blob/develop/changelog.md#021-2014-08-02) for changelog.
+- Bugfix: `updateTime()` is called too often for future dates ([#73](https://github.com/urish/angular-moment/issues/73)) 
+
+## 0.8.0 - 2014-07-26
+- Generate source map for the minified version ([#50](https://github.com/urish/angular-moment/issues/50))
+- Add support HTML `<time>` element - set the `datetime` attribute ([#41](https://github.com/urish/angular-moment/pull/41), contributed by [gsklee](https://github.com/gsklee))
+- Add default format (angularMomentConfig.format config property) ([#52](https://github.com/urish/angular-moment/pull/52), contributed by [otang](https://github.com/otang))
+- Add `serverTime` configuration option ([#53](https://github.com/urish/angular-moment/pull/53), contributed by [Facundo Pedrazzini](https://github.com/Facuu7))
+- Implement one-time binding for `am-time-ago` ([#54](https://github.com/urish/angular-moment/pull/54), contributed by [Ephi Gabay](https://github.com/ephigabay))
+- Support moment.js v2.7.0. See [here](https://gist.github.com/ichernev/b0a3d456d5a84c9901d7) for changelog.
+- Support moment-timezone v0.1.0. See [here](https://github.com/moment/moment-timezone/blob/develop/changelog.md#010-2014-06-23) for changelog.
+
 ## 0.7.1 - 2014-05-16
 - bugfix: Preprocess set in configuration not used by filters ([#49](https://github.com/urish/angular-moment/issues/49))
 
