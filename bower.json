@@ -1,11 +1,13 @@
 {
-	"name": "Handheld Demo",
-	"private": "true",
-	"dependencies": {
-		"angular-ui-utils": "latest",
-		"angular-moment": "latest"
-	},
-	"devDependencies": {
-		"ionic": "1.2.4"
-	}
+  "name": "Handheld Demo",
+  "private": "true",
+  "dependencies": {
+    "angular-ui-utils": "v3.0.0",
+    "angular-moment": "1.0.0-beta.3",
+    "angular-resource": "1.4.3",
+    "jquery": "2.1.1"
+  },
+  "devDependencies": {
+    "ionic": "1.2.4"
+  }
 }
