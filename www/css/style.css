@@ -1,6 +1,7 @@
 .customer-item {
     padding: 0;
     height: 116px;
+    position: absolute;
 }
 
 .customer-item img.signature {
