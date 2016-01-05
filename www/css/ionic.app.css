@@ -4286,7 +4286,8 @@ a.subdued {
   border-top-width: 1px;
   border-bottom-width: 0;
   background-position: top;
-  height: 44px; }
+  height: 44px;
+  }
   .bar-footer.item-input-inset {
     position: absolute; }
 
@@ -8917,7 +8918,8 @@ a.button {
   -moz-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  width: 100%; }
+  width: 100%;
+  }
   .button-bar.button-bar-inline {
     display: block;
     width: auto;

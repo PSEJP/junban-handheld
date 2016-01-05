@@ -45,8 +45,7 @@
     left: 50%;
     display: inline-block;    
     margin-left: -22px;  
-    width: 44px;       
-    color: gray;
+    width: 44px;
     font-size: 16px;
     text-align: center;
 }    
@@ -63,6 +62,7 @@
 
 .bar {
     transition: background-color 500ms linear;
+    flex-direction: column;
 }
 
 @media screen and (max-width: 800px)/* and (orientation:portrait)*/ {
@@ -83,8 +83,32 @@
     .customer-item .sequence-sm .sequence-timing {
         position: absolute;
         left: 100%;
-        padding: 0 5px;            
-        color: gray;
+        padding: 0 5px;
         font-size: 16px;
     }    
+}
+
+.answer-item {
+    margin-bottom: 5px;
+}
+
+.answer-item * {
+    text-align: center;
+}
+
+.time-bar {
+    background-color: #EDEDED;
+}
+
+.time-bar .created-at {
+    color: #8E8E8E;
+}
+
+.time-bar .wait-for {
+    color: #8ABDEF;
+    float: right;
+}
+
+.answer-list {
+    background: #ECECEC;
 }
