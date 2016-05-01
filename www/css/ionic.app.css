@@ -3504,8 +3504,6 @@ ion-infinite-scroll {
     position: static;
     height: 100%;
     -webkit-transform: translate3d(0, 0, 0); }
-  .overflow-scroll.keyboard-up:not(.keyboard-up-confirm) {
-    overflow: hidden; }
 
 /* If you change these, change platform.scss as well */
 .has-header {
@@ -4286,8 +4284,7 @@ a.subdued {
   border-top-width: 1px;
   border-bottom-width: 0;
   background-position: top;
-  height: 44px;
-  }
+  height: 44px; }
   .bar-footer.item-input-inset {
     position: absolute; }
 
@@ -4966,45 +4963,81 @@ ion-tabs.tabs-color-active-light .tab-item {
   ion-tabs.tabs-color-active-light .tab-item.tab-item-active, ion-tabs.tabs-color-active-light .tab-item.active, ion-tabs.tabs-color-active-light .tab-item.activated {
     color: #fff; }
 
+ion-tabs.tabs-striped.tabs-color-active-light .tab-item.tab-item-active, ion-tabs.tabs-striped.tabs-color-active-light .tab-item.active, ion-tabs.tabs-striped.tabs-color-active-light .tab-item.activated {
+  border-color: #fff;
+  color: #fff; }
+
 ion-tabs.tabs-color-active-stable .tab-item {
   color: #444; }
   ion-tabs.tabs-color-active-stable .tab-item.tab-item-active, ion-tabs.tabs-color-active-stable .tab-item.active, ion-tabs.tabs-color-active-stable .tab-item.activated {
     color: #f8f8f8; }
+
+ion-tabs.tabs-striped.tabs-color-active-stable .tab-item.tab-item-active, ion-tabs.tabs-striped.tabs-color-active-stable .tab-item.active, ion-tabs.tabs-striped.tabs-color-active-stable .tab-item.activated {
+  border-color: #f8f8f8;
+  color: #f8f8f8; }
 
 ion-tabs.tabs-color-active-positive .tab-item {
   color: #444; }
   ion-tabs.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-color-active-positive .tab-item.activated {
     color: #428bca; }
 
+ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.tab-item-active, ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.active, ion-tabs.tabs-striped.tabs-color-active-positive .tab-item.activated {
+  border-color: #428bca;
+  color: #428bca; }
+
 ion-tabs.tabs-color-active-calm .tab-item {
   color: #444; }
   ion-tabs.tabs-color-active-calm .tab-item.tab-item-active, ion-tabs.tabs-color-active-calm .tab-item.active, ion-tabs.tabs-color-active-calm .tab-item.activated {
     color: #5bc0de; }
+
+ion-tabs.tabs-striped.tabs-color-active-calm .tab-item.tab-item-active, ion-tabs.tabs-striped.tabs-color-active-calm .tab-item.active, ion-tabs.tabs-striped.tabs-color-active-calm .tab-item.activated {
+  border-color: #5bc0de;
+  color: #5bc0de; }
 
 ion-tabs.tabs-color-active-assertive .tab-item {
   color: #444; }
   ion-tabs.tabs-color-active-assertive .tab-item.tab-item-active, ion-tabs.tabs-color-active-assertive .tab-item.active, ion-tabs.tabs-color-active-assertive .tab-item.activated {
     color: #d9534f; }
 
+ion-tabs.tabs-striped.tabs-color-active-assertive .tab-item.tab-item-active, ion-tabs.tabs-striped.tabs-color-active-assertive .tab-item.active, ion-tabs.tabs-striped.tabs-color-active-assertive .tab-item.activated {
+  border-color: #d9534f;
+  color: #d9534f; }
+
 ion-tabs.tabs-color-active-balanced .tab-item {
   color: #444; }
   ion-tabs.tabs-color-active-balanced .tab-item.tab-item-active, ion-tabs.tabs-color-active-balanced .tab-item.active, ion-tabs.tabs-color-active-balanced .tab-item.activated {
     color: #5cb85c; }
+
+ion-tabs.tabs-striped.tabs-color-active-balanced .tab-item.tab-item-active, ion-tabs.tabs-striped.tabs-color-active-balanced .tab-item.active, ion-tabs.tabs-striped.tabs-color-active-balanced .tab-item.activated {
+  border-color: #5cb85c;
+  color: #5cb85c; }
 
 ion-tabs.tabs-color-active-energized .tab-item {
   color: #444; }
   ion-tabs.tabs-color-active-energized .tab-item.tab-item-active, ion-tabs.tabs-color-active-energized .tab-item.active, ion-tabs.tabs-color-active-energized .tab-item.activated {
     color: #f0ad4e; }
 
+ion-tabs.tabs-striped.tabs-color-active-energized .tab-item.tab-item-active, ion-tabs.tabs-striped.tabs-color-active-energized .tab-item.active, ion-tabs.tabs-striped.tabs-color-active-energized .tab-item.activated {
+  border-color: #f0ad4e;
+  color: #f0ad4e; }
+
 ion-tabs.tabs-color-active-royal .tab-item {
   color: #444; }
   ion-tabs.tabs-color-active-royal .tab-item.tab-item-active, ion-tabs.tabs-color-active-royal .tab-item.active, ion-tabs.tabs-color-active-royal .tab-item.activated {
     color: #886aea; }
 
+ion-tabs.tabs-striped.tabs-color-active-royal .tab-item.tab-item-active, ion-tabs.tabs-striped.tabs-color-active-royal .tab-item.active, ion-tabs.tabs-striped.tabs-color-active-royal .tab-item.activated {
+  border-color: #886aea;
+  color: #886aea; }
+
 ion-tabs.tabs-color-active-dark .tab-item {
   color: #fff; }
   ion-tabs.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs.tabs-color-active-dark .tab-item.active, ion-tabs.tabs-color-active-dark .tab-item.activated {
     color: #444; }
+
+ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.active, ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.activated {
+  border-color: #444;
+  color: #444; }
 
 .tabs-top.tabs-striped {
   padding-bottom: 0; }
@@ -6243,6 +6276,12 @@ button.item.item-button-right {
     min-height: 34px;
     font-size: 18px;
     line-height: 32px; }
+
+.item-button-left.item-button-right .button:first-child {
+  right: auto; }
+
+.item-button-left.item-button-right .button:last-child {
+  left: auto; }
 
 .item-avatar,
 .item-avatar .item-content,
@@ -8082,7 +8121,7 @@ input:checked + .checkbox-icon:after {
   pointer-events: none; }
 
 /* Fix to avoid background color bleeding */
-/* (occured on (at least) Android 4.2, Asus MeMO Pad HD7 ME173X) */
+/* (occurred on (at least) Android 4.2, Asus MeMO Pad HD7 ME173X) */
 .platform-android4_2 .toggle .track {
   -webkit-background-clip: padding-box; }
 
@@ -8918,8 +8957,7 @@ a.button {
   -moz-flex: 1;
   -ms-flex: 1;
   flex: 1;
-  width: 100%;
-  }
+  width: 100%; }
   .button-bar.button-bar-inline {
     display: block;
     width: auto;
@@ -8934,6 +8972,24 @@ a.button {
       width: auto;
       display: inline-block;
       float: left; }
+  .button-bar.bar-light > .button {
+    border-color: #ddd; }
+  .button-bar.bar-stable > .button {
+    border-color: #b2b2b2; }
+  .button-bar.bar-positive > .button {
+    border-color: #3071a9; }
+  .button-bar.bar-calm > .button {
+    border-color: #31b0d5; }
+  .button-bar.bar-assertive > .button {
+    border-color: #c9302c; }
+  .button-bar.bar-balanced > .button {
+    border-color: #449d44; }
+  .button-bar.bar-energized > .button {
+    border-color: #eea236; }
+  .button-bar.bar-royal > .button {
+    border-color: #6b46e5; }
+  .button-bar.bar-dark > .button {
+    border-color: #111; }
 
 .button-bar > .button {
   -webkit-box-flex: 1;

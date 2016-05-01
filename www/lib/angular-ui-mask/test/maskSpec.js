@@ -3,7 +3,7 @@ describe("uiMask", function () {
 
   var formHtml  = "<form name='test'><input name='input' ng-model='x' ui-mask='{{mask}}'></form>";
   var inputHtml = "<input name='input' ng-model='x' ui-mask='{{mask}}' ui-options='options'>";
-  var compileElement, scope, config, timeout;
+  var compileElement, scope, config, timeout, uiMaskConfigProvider;
 
   beforeEach(module("ui.mask"));
   beforeEach(function() {
@@ -21,7 +21,10 @@ describe("uiMask", function () {
           });
         }
       }
-    });
+    })
+    .config(['uiMask.ConfigProvider', function(configProvider) {
+      uiMaskConfigProvider = configProvider;
+    }]);
     module("test");
   });
   beforeEach(inject(function ($rootScope, $compile, uiMaskConfig, $timeout) {
@@ -89,7 +92,6 @@ describe("uiMask", function () {
     });
 
   });
-
   describe("with other directives", function() {
     beforeEach(function () {
       compileElement("<form name='test'><input to-upper name='input' ng-model='x' ui-mask='{{mask}}'></form>");
@@ -116,15 +118,6 @@ describe("uiMask", function () {
         scope.$apply();
         expect(scope.x).toBe("(a) c 2");
       });
-    });
-
-    describe("nested inside another directive", function() {
-        it("should have the correct placeholder value inside ng-if", function() {
-            var input = compileElement('<div><div ng-if="showMe"><input type="text" ng-model="x" ui-mask="99/99/9999" ui-mask-placeholder="__/__/____" placeholder="date" /></div></div>');
-            scope.$apply("showMe = true");
-            input = input.find('input');
-            expect(input.val()).toBe("");
-        })
     });
   });
 
@@ -251,6 +244,42 @@ describe("uiMask", function () {
       input.val("12345").triggerHandler("change");
       expect(scope.x).toBe("12345");
     });
+
+    it("should not bleed static mask characters into the value when backspacing", function() {
+        var input = compileElement(inputHtml);
+        scope.$apply("x = ''");
+        scope.$apply("mask = 'QT****'");
+        input.triggerHandler('focus');
+        expect(input.val()).toBe("QT____");
+        //simulate a backspace event
+        input.triggerHandler({ type: 'keydown', which: 8 });
+        input.triggerHandler({ type: 'keyup', which: 8 });
+        expect(input.val()).toBe("QT____");
+        expect(scope.x).toBe('');
+    });
+
+    it("should set model value properly when the value contains the same character as a static mask character", function() {
+        var input = compileElement(inputHtml);
+        scope.$apply("mask = '19'");
+        input.triggerHandler("input");
+        expect(input.val()).toBe("1_");
+        input.val("11").triggerHandler("change");
+        expect(scope.x).toBe("1");
+
+        scope.$apply("mask = '9991999'");
+        scope.$apply("x = ''");
+        input.triggerHandler("input");
+        expect(input.val()).toBe("___1___");
+        input.val("1231456").triggerHandler("change");
+        expect(scope.x).toBe("123456");
+    });
+
+    it("should mask the input properly with multiple identical mask components", function() {
+        var input = compileElement(inputHtml);
+        scope.$apply("mask = '99.99.99-999.99'");
+        input.val("811").triggerHandler("input");
+        expect(input.val()).toBe("81.1_.__-___.__");
+    });
   });
 
   describe("verify change is called", function () {
@@ -347,6 +376,98 @@ describe("uiMask", function () {
       input.val("1").triggerHandler("input");
       input.triggerHandler("change"); // Because IE8 and below are terrible
       expect(scope.x).toBeUndefined();
+    });
+  });
+
+  describe("escChar", function () {
+    it("should escape default mask definitions", function() {
+      var escapeHtml = "<input name='input' ng-model='x' ui-mask='{{mask}}'>",
+          input  = compileElement(escapeHtml);
+      scope.$apply(function() {
+        scope.x = '';
+        scope.mask = '\\A\\9\\*\\?*';
+      });
+      expect(input.attr("placeholder")).toBe("A9*?_");
+      input.val("a").triggerHandler("input");
+      expect(input.val()).toBe("A9*?a");
+    });
+    it("should not confuse entered values with escaped values", function() {
+      var escapeHtml = "<input name='input' ng-model='x' ui-mask='{{mask}}'>",
+          input  = compileElement(escapeHtml);
+      scope.$apply(function() {
+        scope.x = '';
+        scope.mask = '\\A\\9\\*\\?****';
+      });
+      expect(input.attr("placeholder")).toBe("A9*?____");
+      input.val("A9A9").triggerHandler("input");
+      expect(input.val()).toBe("A9*?A9A9");
+    });
+    it("should escape custom mask definitions", function() {
+      scope.options = {
+        maskDefinitions: {
+          "Q": /[Qq]/
+        }
+      };
+      var input  = compileElement(inputHtml);
+      scope.$apply(function() {
+        scope.x = '';
+        scope.mask = '\\QQ';
+      });
+      expect(input.attr("placeholder")).toBe("Q_");
+      input.val("q").triggerHandler("input");
+      expect(input.val()).toBe("Qq");
+    });
+    it("should escape normal characters", function() {
+      var input  = compileElement(inputHtml);
+      scope.$apply(function() {
+        scope.x = '';
+        scope.mask = '\\W*';
+      });
+      expect(input.attr("placeholder")).toBe("W_");
+      input.val("q").triggerHandler("input");
+      expect(input.val()).toBe("Wq");
+    });
+    it("should escape itself", function() {
+      var escapeHtml = "<input name='input' ng-model='x' ui-mask='{{mask}}'>",
+          input  = compileElement(escapeHtml);
+      scope.$apply(function() {
+        scope.x = '';
+        scope.mask = '\\\\*';
+      });
+      scope.$apply("x = ''");
+      scope.$apply("mask = '\\\\\\\\*'");
+      expect(input.attr("placeholder")).toBe("\\_");
+      input.val("a").triggerHandler("input");
+      expect(input.val()).toBe("\\a");
+    });
+    it("should change the escape character", function() {
+      scope.options = {
+        escChar: '!',
+        maskDefinitions: {
+          "Q": /[Qq]/
+        }
+      };
+      var input  = compileElement(inputHtml);
+      scope.$apply(function() {
+        scope.x = '';
+        scope.mask = '\\!A!9!*!Q!!!W*';
+      });
+      expect(input.attr("placeholder")).toBe("\\A9*Q!W_");
+      input.val("a").triggerHandler("input");
+      expect(input.val()).toBe("\\A9*Q!Wa");
+    });
+    it("should use null to mean no escape character", function() {
+      scope.options = {
+        escChar: null,
+      };
+      var input  = compileElement(inputHtml);
+      scope.$apply(function() {
+        scope.x = '';
+        scope.mask = '\\!A!9!*!!*';
+      });
+      expect(input.attr("placeholder")).toBe("\\!_!_!_!!_");
+      input.val("a").triggerHandler("input");
+      expect(input.val()).toBe("\\!a!_!_!!_");
     });
   });
 
@@ -474,7 +595,7 @@ describe("uiMask", function () {
 
       input.triggerHandler("blur");
       expect(input.attr("placeholder")).toBe("MM/DD/YYYY");
-    })
+    });
 
     it("should allow text input to be the same character as ui-mask-placeholder-char", function() {
       var placeholderHtml = "<input name='input' ng-model='x' ui-mask='(999) 999-9999' placeholder='Phone Number' ui-mask-placeholder-char='5'>",
@@ -555,6 +676,17 @@ describe("uiMask", function () {
       input.triggerHandler("blur");
       expect(input.val()).toBe("f111");
     });
+
+    it("should accept new addDefaultPlaceholder value set per element", function() {
+        scope.options = {
+            addDefaultPlaceholder: false
+        };
+
+        var input = compileElement(inputHtml);
+        scope.$apply("x = ''");
+        scope.$apply("mask = '@999'");
+        expect(input.attr('placeholder')).toBe(undefined);
+    });
   });
 
   describe("blurring", function () {
@@ -608,6 +740,80 @@ describe("uiMask", function () {
       input.triggerHandler("blur");
       expect(input.val()).toBe("");
     });
+
+    var inputHtmlClearOnBlurPlaceholder = "<input name='input' ng-model='x' ui-mask='{{mask}}' ui-options=\"input.options\" ui-mask-placeholder placeholder=\"PLACEHOLDER\">";
+
+    it("should not show placeholder when value is invalid if clearOnBlurPlaceholder is false", function() {
+      scope.input = {
+        options: {
+          clearOnBlur: false,
+          clearOnBlurPlaceholder: false
+        }
+      };
+
+      var input = compileElement(inputHtmlClearOnBlurPlaceholder);
+
+      scope.$apply("x = ''");
+      scope.$apply("mask = '(9) * A'");
+
+      input.val("").triggerHandler("input");
+      input.triggerHandler("blur");
+      expect(input.val()).toBe("(_) _ _");
+    });
+
+    it("should show placeholder when value is invalid if clearOnBlurPlaceholder is true", function() {
+      scope.input = {
+        options: {
+          clearOnBlur: false,
+          clearOnBlurPlaceholder: true
+        }
+      };
+
+      var input = compileElement(inputHtmlClearOnBlurPlaceholder);
+
+      scope.$apply("x = ''");
+      scope.$apply("mask = '(9) * A'");
+
+      input.val("").triggerHandler("input");
+      input.triggerHandler("blur");
+      expect(input.val()).toBe("");
+      expect(input.attr("placeholder")).toBe("PLACEHOLDER");
+    });
+
+    it("should not preserve $invalid on blur event", function() {
+      var form  = compileElement(formHtml);
+      var input = form.find("input");
+      scope.$apply("x = ''");
+      scope.$apply("mask = '(A) * 9'");
+      input.val("a").triggerHandler("input");
+      input.triggerHandler("blur");
+      expect(scope.test.input.$invalid).toBe(false);
+    });
+  });
+
+  describe("Configuration Provider", function() {
+    it("should return default values", inject(function($injector) {
+      var service = $injector.invoke(uiMaskConfigProvider.$get);
+      expect(service.maskDefinitions).toEqual({'9': /\d/, 'A': /[a-zA-Z]/, '*': /[a-zA-Z0-9]/ });
+      expect(service.clearOnBlur).toEqual(true);
+      expect(service.clearOnBlurPlaceholder).toEqual(false);
+      expect(service.eventsToHandle).toEqual(['input', 'keyup', 'click', 'focus']);
+      expect(service.addDefaultPlaceholder).toEqual(true);
+    }));
+
+    it("should merge default values with configured values", inject(function($injector) {
+      uiMaskConfigProvider.maskDefinitions({'7': /\d/});
+      uiMaskConfigProvider.clearOnBlur(false);
+      uiMaskConfigProvider.clearOnBlurPlaceholder(true);
+      uiMaskConfigProvider.eventsToHandle(['input', 'keyup']);
+      uiMaskConfigProvider.addDefaultPlaceholder(false);
+      var service = $injector.invoke(uiMaskConfigProvider.$get);
+      expect(service.maskDefinitions).toEqual({'7': /\d/, '9': /\d/, 'A': /[a-zA-Z]/, '*': /[a-zA-Z0-9]/ });
+      expect(service.clearOnBlur).toEqual(false);
+      expect(service.clearOnBlurPlaceholder).toEqual(true);
+      expect(service.eventsToHandle).toEqual(['input', 'keyup']);
+      expect(service.addDefaultPlaceholder).toEqual(false);
+    }));
   });
 
 });

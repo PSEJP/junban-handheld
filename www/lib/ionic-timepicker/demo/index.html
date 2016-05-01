@@ -1,0 +1,99 @@
+<html ng-app="ionicApp">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+    <title>Ionic Pull to Refresh</title>
+
+    <link href="https://code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <script src="https://code.ionicframework.com/nightly/js/ionic.bundle.js"></script>'
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment-with-locales.min.js"></script>
+    <script src="../dist/ionic-timepicker.bundle.min.js"></script>
+
+</head>
+<body ng-controller="MyCtrl">
+
+
+<ion-header-bar class="bar-positive">
+    <h1 class="title">Ionic</h1>
+</ion-header-bar>
+
+<ion-content>
+    <div class="list">
+        <div class="item item-divider item-toggle">自動クリア時間</div>
+        <div class="item item-block item-date-picker">
+            <div class="row row-wrap">
+                <div class="col col-center col-relative col-25" ng-repeat="item in date">
+                    <button ng-if="item" class="button button-calm button-circle button-date-picked" ng-click="openTimepicker($index, null, item.date)">
+                        <span class="date-picked" data-date="{{item.date}}" data-time="{{item.time}}"></span>
+                    </button>
+                    <button class="button button-close button-small button-clear icon ion-close-round" ng-click="removeTimePicked($index)"></button>
+                </div>
+                <div class="col col-center col-25">
+                    <button class="button button-calm icon ion-plus-round button-circle" name="create"
+                            ng-click="openTimepicker($index, $event.target.name)">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>
+
+<script>
+    (function () {
+        angular.module('ionicApp', ['ionic', 'ionic-timepicker'])
+
+            .controller('MyCtrl', function ($scope, $timeout, ionicTimePicker) {
+                $scope.date = [
+                    {date: 7, time: 6600} // 01:50
+                ];
+
+                $scope.removeTimePicked = function(index) {
+                    $scope.date.splice(index, 1);
+                };
+
+                $scope.openTimepicker = function (index, name, dow) {
+
+                    var ipObj1 = {
+                        callback: function (val, dow) { //Mandatory
+
+                            // create new Auto clear Time
+                            if( name === 'create') {
+                                var selectedTime = new Date(val * 1000);
+                                $scope.date.push({
+                                    date: dow,
+                                    time: selectedTime.getUTCHours() + ':' + selectedTime.getUTCMinutes()
+                                });
+                                return;
+                            }
+
+                            if (typeof(val) !== 'undefined' && typeof(dow) !== 'undefined') {
+                                // edit auto clear time
+                                var selectedTime = new Date(val * 1000);
+                                $scope.date[index]={
+                                    date: dow,
+                                    time: selectedTime.getUTCHours() + ':' + selectedTime.getUTCMinutes()
+                                };
+                                console.log('Selected epoch is : ', val, 'and the time is ', selectedTime.getUTCHours(), 'H :', selectedTime.getUTCMinutes(), 'M');
+                            }
+                        },
+                        dow: dow,
+                        //inputTime: 0, //Optional
+                        format: 24, //Optional
+                        step: 10, //Optional
+                        setLabel: 'セット', //Optional
+                        closeLabel: 'キャンセル' //Optional
+                    };
+
+                    ionicTimePicker.openTimePicker(ipObj1);
+
+                };
+
+            })
+    })();
+</script>
+</body>
+
+</html>
